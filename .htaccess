@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^index.html(.*) index.php$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^Admin/(.*) admin.php/$1 [L]
+RewriteRule ^Agency20/Template/getDefault(.*) agency300.php/Template/getDefault$1 [L]
+RewriteRule ^App304/Public/createDimension(.*) app401.php/Public/createDimension$1 [L]
+#RewriteRule (.*)Admin/(.*) http://localhost/baletoo/admin.php/$2 [L]
+RewriteRule ^App/(.*) app.php/$1 [L]
+RewriteRule ^App300/(.*) app300.php/$1 [L]
+RewriteRule ^Agency/(.*) agency.php/$1 [L]
+RewriteRule ^Agency20/(.*) agency20.php/$1 [L]
+RewriteRule ^Agency202/(.*) agency202.php/$1 [L]
+RewriteRule ^Agency203/(.*) agency203.php/$1 [L]
+RewriteRule ^Agency300/(.*) agency300.php/$1 [L]
+RewriteRule ^Agency303/(.*) agency303.php/$1 [L]
+RewriteRule ^App303/(.*) app303.php/$1 [L]
+RewriteRule ^App304/(.*) app304.php/$1 [L]
+RewriteRule ^App400/(.*) app400.php/$1 [L]
+RewriteRule ^App401/(.*) app401.php/$1 [L]
+RewriteRule ^Tools/(.*) tools.php/$1 [L]
+RewriteRule ^Operator/(.*) operator.php/$1 [L]
+RewriteRule ^robots.txt$ robots/%{HTTP_HOST}_robots.txt [L]
+Redirect permanent /Agency/Index/getVerifyCode /Agency20/Index/getVerifyCode
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+RewriteRule ^t.gif(.*) t.php$1 [L]
+
+</IfModule>
