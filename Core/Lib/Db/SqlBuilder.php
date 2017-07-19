@@ -1,10 +1,12 @@
 <?php
 
+namespace Core\Lib\Db;
+
 abstract class SqlBuilder {
-	protected sqlBuilder = ""
+	protected $sqlBuilder;
 	
 	public function from ($table) {
-		$this->sqlBuilder += " from {$table}";
+		$this->sqlBuilder .= " from `{$table}`";
 
 		return $this;
 	}
@@ -12,7 +14,7 @@ abstract class SqlBuilder {
 	public function where (Array $where) {
 		$key	= array_keys($where)[0];
 		$value	= $where[$key]; 
-		$this->sqlBuilder += " where {$key} = '{$value}'"
+		$this->sqlBuilder .= " where `{$key}` = '{$value}'";
 
 		return $this;
 	}
@@ -26,4 +28,6 @@ abstract class SqlBuilder {
 	private function prepareWhere (Array $where) {
 
 	}
+
+	public abstract function buildSql ();
 }

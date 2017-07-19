@@ -1,5 +1,7 @@
 <?php
 
+require 'Common/db_functions.php';
+
 function router_dispach () {
 	$oldDir = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
 	$dir = preg_filter('#\/[a-z]*$#', '', $oldDir);
@@ -34,3 +36,4 @@ function router_dispach () {
 }
 
 router_dispach();
+
