@@ -27,9 +27,26 @@ class RunController {
 			'id' => '2'
 		])
 		->buildSql();
-	}
+		
+		print_r('<hr/>');
 
-	public function test () {
-		print_r('test');
-	}
+		delete('user')
+		->where([
+			'name' => 'zys'
+		])
+		->buildSql();
+
+		print_r('<hr/>');
+
+		insert('user')
+		->values([
+			'name' => 'zys',
+			'age'  => 18
+		])
+		->buildSql();
+}
+
+public function test () {
+	print_r('test');
+}
 }
