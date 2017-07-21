@@ -7,15 +7,17 @@ class RunController {
 		print_r('hello world !' . "\n");
 		print_r('<hr/>');
 
-		select([
-			'name',
-			'age'
+		$res = select([
+			'id',
+			'name'
 		])
 		->from('user')
 		->where([
-			'id' => '12'
+			'password' => '111111'
 		])
-		->buildSql();
+		->execute();
+
+		print_r($res);
 
 		print_r('<hr/>');
 
