@@ -42,6 +42,10 @@ abstract class AbstractEntity {
 		return $this;
 	}
 
+	public function data () {
+		return $this->data;
+	}
+
 	public function fetchAll () {
 		
 	}

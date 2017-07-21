@@ -2,12 +2,8 @@
 
 namespace Core\Lib\Db;
 
-require CORE_DIR . 'Model/BaseModel.php';
-
-use \Core\Model\BaseModel;
-
 class Pdo {
-	private static $conn = "";
+	private static $conn = null;
 	
 	public $db_name;
 	public static $last_sql;
@@ -49,10 +45,6 @@ class Pdo {
 
 		print_r($sql);
 		print_r(Pdo::$conn);
-
-		foreach ($res as $obj) {
-			$items[] = new BaseModel($obj);
-		}
 
 		return $items;
 	}
