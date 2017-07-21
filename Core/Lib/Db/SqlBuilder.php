@@ -4,8 +4,12 @@ namespace Core\Lib\Db;
 
 abstract class SqlBuilder {
 	protected $sqlBuilder;
+
+	public $table;
 	
 	public function from ($table) {
+		$this->table = $table;
+
 		$this->sqlBuilder .= " from `{$table}`";
 
 		return $this;
