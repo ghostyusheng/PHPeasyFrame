@@ -38,7 +38,6 @@ class Pdo {
 	}
 
 	public function query ($sql) {
-		$items = [];
 		Pdo::$last_sql = $sql;
 
 		$res = Pdo::$conn->query($sql); 
@@ -46,7 +45,7 @@ class Pdo {
 		print_r($sql);
 		print_r(Pdo::$conn);
 
-		return $items;
+		return $res;
 	}
 
 	public function close_db () {

@@ -25,6 +25,7 @@ class SelectBuilder extends SqlBuilder implements SelectInterface {
 		
 	}
 
+
 	public function execute () {
 		$pdo  = Pdo::getInstance();
 		$res  = $pdo->query($this->sqlBuilder);
@@ -36,7 +37,7 @@ class SelectBuilder extends SqlBuilder implements SelectInterface {
 			$manager->create($obj);
 		}
 
-		return $res;
+		return $baseEntity;
 	}
 
 	public function buildSql() {
