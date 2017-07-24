@@ -12,13 +12,17 @@ abstract class AbstractEntity {
 	public $isNew				= true;
 	public $returnType			= 'Object';
 
-	public $pageSize		= 20;
+	public $pageSize		= 10;
 	public $page			= 1;
 	public $totalPage		= 1;
 	protected static $_instance = array();
 
-	public function __construct () {
+	public function __construct ($modelPath = null) {
 		$this->db = Pdo::getInstance(); 
+
+		if ($modelPath) {
+			$this->setModelPath($modelPath);
+		}
 	}
 
 	public static function getInstance () {
@@ -28,6 +32,20 @@ abstract class AbstractEntity {
 		}
 
 		return self::$_instance[$className];
+	}
+
+	public function getModelPath () {
+		return $this->modelPath;
+	}
+
+	public function setModelPath ($modelPath) {
+		$this->modelPath = $modelPath;
+	}
+
+	public function setReturnType ($type) {
+		$this->returnType = $type;
+
+		return $this;
 	}
 	
 	public function setCurrentPage ($page) {
@@ -47,9 +65,27 @@ abstract class AbstractEntity {
 	}
 
 	public function fetchAll () {
-		
+		if ($path = $this->getModelPath()) {
+			$realpath = $path . '.php'; 	
+
+			include BASE_DIR . str_replace('\\', '/', $realpath);
+
+			$model = new $path();
+
+			$table = explode('\\', substr($path, 1, -5));
+			array_shift($table);
+			$table = strtolower(implode('_', $table));
+
+			$entity = select(['*'])
+				->from($table)
+				->limit(($this->page - 1) * $this->pageSize, $this->pageSize)
+				->execute();
+
+			return $entity;
+		}
 	}
 
 	public function fetchOne () {
+
 	}
 }

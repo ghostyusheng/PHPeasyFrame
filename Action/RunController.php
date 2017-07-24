@@ -1,5 +1,11 @@
 <?php
 
+require_once CORE_DIR . '/Lib/Entity/BaseEntity.php';
+require_once CORE_DIR . '/Lib/Entity/EntityManager.php';
+
+use Core\Lib\Entity\BaseEntity;
+use Core\Lib\Entity\EntityManager;
+
 class RunController {
 	
 	public function index () {
@@ -15,6 +21,7 @@ class RunController {
 		->where([
 			'password' => '111111'
 		])
+		->limit(1, 10)
 		->execute();
 
 		print_r($res);
@@ -48,7 +55,25 @@ class RunController {
 		->buildSql();
 }
 
-public function test () {
-	print_r('test');
-}
+	public function test () {
+		$entity	= new BaseEntity('\Model\Activity\VotesModel');
+		$entity = $entity->setCurrentPage(2)
+			   ->setPageSize(20)
+			   ->setReturnType('object')
+		       ->fetchAll();
+
+		print_r('<pre>');
+		print_r($entity);
+	}
+
+	public function walk () {
+		$entity	= new BaseEntity('\Model\RunModel');
+		$entity = $entity->setCurrentPage(2)
+			   ->setPageSize(20)
+			   ->setReturnType('object')
+		       ->fetchAll();
+
+		print_r('<pre>');
+		print_r($entity);
+	}
 }

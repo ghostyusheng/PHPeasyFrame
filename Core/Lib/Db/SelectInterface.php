@@ -9,4 +9,6 @@ interface SelectInterface {
 	public function select(Array $fields);
 
 	public function build();
+
+	public function limit($start, $offset);
 }

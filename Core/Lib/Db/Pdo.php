@@ -5,7 +5,7 @@ namespace Core\Lib\Db;
 class Pdo {
 	private static $conn = null;
 	
-	public $db_name;
+	public $db_name = DB_NAME;
 	public static $last_sql;
 
 	public function __construct () {
@@ -35,6 +35,12 @@ class Pdo {
 			echo 'Connection failed: ' . $e->getMessage();
 		}
 
+	}
+
+	public function setDbName ($db) {
+		$this->db_name = $db;
+
+		return $this;
 	}
 
 	public function query ($sql) {

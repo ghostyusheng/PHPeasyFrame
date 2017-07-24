@@ -4,7 +4,11 @@ namespace Core\Model;
 
 class BaseModel {
 
-    public function __construct ($obj) {
+    public function __construct ($obj = null) {
+		if (!$obj) {
+			return;
+		}
+
         foreach ($obj as $attr => $val) {
             $this->$attr = $val;
         }

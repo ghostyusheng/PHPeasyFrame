@@ -10,9 +10,6 @@ use Core\Model\BaseModel;
 
 class BaseEntity extends AbstractEntity {
 
-	public function __construct () {
-	}
-
 	public function create ($obj, $classname) {
 		if (!$classname) {
 			$model = new BaseModel($obj);

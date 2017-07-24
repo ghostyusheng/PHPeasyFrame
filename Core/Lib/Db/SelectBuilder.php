@@ -40,6 +40,12 @@ class SelectBuilder extends SqlBuilder implements SelectInterface {
 		return $baseEntity;
 	}
 
+	public function limit ($start, $offset) {
+		$this->sqlBuilder .= " limit {$start},{$offset}";
+
+		return $this;
+	}
+
 	public function buildSql() {
 		echo $this->sqlBuilder;
 	}
