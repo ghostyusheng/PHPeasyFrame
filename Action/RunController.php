@@ -67,13 +67,16 @@ class RunController {
 	}
 
 	public function walk () {
-		$entity	= new BaseEntity('\Model\RunModel');
-		$entity = $entity->setCurrentPage(2)
+		$entity	= new BaseEntity('\Model\UserModel');
+		$entity = $entity->setCurrentPage(1)
 			   ->setPageSize(20)
 			   ->setReturnType('object')
 		       ->fetchAll();
 
 		print_r('<pre>');
 		print_r($entity);
+	}
+
+	public function doo () {
 	}
 }

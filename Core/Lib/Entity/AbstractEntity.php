@@ -88,4 +88,9 @@ abstract class AbstractEntity {
 	public function fetchOne () {
 
 	}
+
+	public function update () {
+		$class = get_called_class();
+		print_r($class);
+	}
 }
