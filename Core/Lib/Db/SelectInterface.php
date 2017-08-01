@@ -2,13 +2,14 @@
 
 namespace Core\Lib\Db;
 
-interface SelectInterface {
-	
-	public function execute();		
+interface SelectInterface
+{
+    
+    public function execute();        
 
-	public function select(Array $fields);
+    public function select(Array $fields);
 
-	public function build();
+    public function build();
 
-	public function limit($start, $offset);
+    public function limit($start, $offset);
 }

@@ -2,11 +2,12 @@
 
 namespace Core\Lib\Db;
 
-interface UpdateInterface {
-	
-	public function execute();		
+interface UpdateInterface
+{
+    
+    public function execute();        
 
-	public function update($field);
+    public function update($field);
 
-	public function build();
+    public function build();
 }

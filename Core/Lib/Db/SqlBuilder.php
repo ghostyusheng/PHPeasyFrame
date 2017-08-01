@@ -2,36 +2,42 @@
 
 namespace Core\Lib\Db;
 
-abstract class SqlBuilder {
-	protected $sqlBuilder;
+abstract class SqlBuilder
+{
+    protected $sqlBuilder;
 
-	public $table;
-	
-	public function from ($table) {
-		$this->table = $table;
+    public $table;
+    
+    public function from($table) 
+    {
+        $this->table = $table;
 
-		$this->sqlBuilder .= " from `{$table}`";
+        $this->sqlBuilder .= " from `{$table}`";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function where (Array $where) {
-		$key	= array_keys($where)[0];
-		$value	= $where[$key]; 
-		$this->sqlBuilder .= " where `{$key}` = '{$value}'";
+    public function where(Array $where) 
+    {
+        $key    = array_keys($where)[0];
+        $value    = $where[$key]; 
+        $this->sqlBuilder .= " where `{$key}` = '{$value}'";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function andWhere(Array $where) {
-	}
+    public function andWhere(Array $where) 
+    {
+    }
 
-	public function orWhere(Array $where) {
-	}
+    public function orWhere(Array $where) 
+    {
+    }
 
-	private function prepareWhere (Array $where) {
+    private function prepareWhere(Array $where) 
+    {
 
-	}
+    }
 
-	public abstract function buildSql ();
+    public abstract function buildSql();
 }

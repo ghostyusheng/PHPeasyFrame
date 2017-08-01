@@ -1,7 +1,7 @@
 <?php
 
 $routers = [
-	'/run'		=> BASE_DIR . 'Action/RunController',
-	'/go'	    => BASE_DIR . 'Action/TestController',
+    '/run'        => BASE_DIR . 'Action/RunController',
+    '/go'        => BASE_DIR . 'Action/TestController',
 ];
 

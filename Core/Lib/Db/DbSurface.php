@@ -2,6 +2,7 @@
 
 namespace Core\Pdo\Db;
 
-class DbSurface extends Surface {
+class DbSurface extends Surface
+{
 
 }

@@ -8,15 +8,17 @@ require CORE_DIR . 'Model/BaseModel.php';
 use Core\Lib\Entity\AbstractEntity;
 use Core\Model\BaseModel;
 
-class BaseEntity extends AbstractEntity {
+class BaseEntity extends AbstractEntity
+{
 
-	public function create ($obj, $classname) {
-		if (!$classname) {
-			$model = new BaseModel($obj);
-		} else {
-			$model = new $classname($obj);
-		}
+    public function create($obj, $classname) 
+    {
+        if (!$classname) {
+            $model = new BaseModel($obj);
+        } else {
+            $model = new $classname($obj);
+        }
 
-		$this->data[] = $model;
-	}
+        $this->data[] = $model;
+    }
 }

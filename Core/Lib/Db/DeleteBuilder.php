@@ -5,24 +5,29 @@ namespace Core\Lib\Db;
 require_once 'SqlBuilder.php';
 require_once 'DeleteInterface.php';
 
-class DeleteBuilder extends SqlBuilder implements DeleteInterface {
+class DeleteBuilder extends SqlBuilder implements DeleteInterface
+{
 
-	public function delete ($table) {
-		$this->sqlBuilder .= "delete from `{$table}`";
+    public function delete($table) 
+    {
+        $this->sqlBuilder .= "delete from `{$table}`";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function build () {
-		
-	}
+    public function build() 
+    {
+        
+    }
 
-	public function execute () {
+    public function execute() 
+    {
 
-	}
+    }
 
-	public function buildSql() {
-		echo $this->sqlBuilder;
-	}
+    public function buildSql() 
+    {
+        echo $this->sqlBuilder;
+    }
 
 }

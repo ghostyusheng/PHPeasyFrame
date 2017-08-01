@@ -6,10 +6,12 @@ require_once CORE_DIR . 'Model/BaseModel.php';
 
 use Core\Model\BaseModel;
 
-class SchoolModel extends BaseModel {
+class SchoolModel extends BaseModel
+{
 
-	public function say () {
-		echo 'uniqid' . "\n";	
-	}
+    public function say() 
+    {
+        echo 'uniqid' . "\n";    
+    }
 }
 

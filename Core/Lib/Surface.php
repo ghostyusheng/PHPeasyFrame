@@ -1,6 +1,7 @@
 <?php
 
-abstract class Surface {
+abstract class Surface
+{
 
 
 }

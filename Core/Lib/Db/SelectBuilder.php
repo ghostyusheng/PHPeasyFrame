@@ -12,42 +12,48 @@ require CORE_DIR . 'Lib/Entity/BaseEntity.php';
 use \Core\Lib\Entity\EntityManager;
 use \Core\Lib\Entity\BaseEntity;
 
-class SelectBuilder extends SqlBuilder implements SelectInterface {
+class SelectBuilder extends SqlBuilder implements SelectInterface
+{
 
-	public function select (Array $fields) {
-		$fields = implode(',', $fields);
-		$this->sqlBuilder .= "select {$fields}";
+    public function select(Array $fields) 
+    {
+        $fields = implode(',', $fields);
+        $this->sqlBuilder .= "select {$fields}";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function build () {
-		
-	}
+    public function build() 
+    {
+        
+    }
 
 
-	public function execute () {
-		$pdo  = Pdo::getInstance();
-		$res  = $pdo->query($this->sqlBuilder);
+    public function execute() 
+    {
+        $pdo  = Pdo::getInstance();
+        $res  = $pdo->query($this->sqlBuilder);
 
-		$baseEntity = new BaseEntity();
-		$manager	= new EntityManager($baseEntity);
+        $baseEntity = new BaseEntity();
+        $manager    = new EntityManager($baseEntity);
 
-		foreach ($res as $obj) {
-			$manager->create($obj);
-		}
+        foreach ($res as $obj) {
+            $manager->create($obj);
+        }
 
-		return $baseEntity;
-	}
+        return $baseEntity;
+    }
 
-	public function limit ($start, $offset) {
-		$this->sqlBuilder .= " limit {$start},{$offset}";
+    public function limit($start, $offset) 
+    {
+        $this->sqlBuilder .= " limit {$start},{$offset}";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function buildSql() {
-		echo $this->sqlBuilder;
-	}
+    public function buildSql() 
+    {
+        echo $this->sqlBuilder;
+    }
 
 }

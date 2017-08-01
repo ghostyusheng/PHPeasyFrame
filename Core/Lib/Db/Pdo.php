@@ -2,59 +2,66 @@
 
 namespace Core\Lib\Db;
 
-class Pdo {
-	private static $conn = null;
-	
-	public $db_name = DB_NAME;
-	public static $last_sql;
+class Pdo
+{
+    private static $conn = null;
+    
+    public $db_name = DB_NAME;
+    public static $last_sql;
 
-	public function __construct () {
-	}
+    public function __construct() 
+    {
+    }
 
-	public static function getInstance () {
-		if (!Pdo::$conn) {
-			Pdo::init_db();			
-			return new Pdo();
-		}
+    public static function getInstance() 
+    {
+        if (!Pdo::$conn) {
+            Pdo::init_db();            
+            return new Pdo();
+        }
 
-		return new Pdo();
-	}
-	
-	public static function init_db () {
-		$dsn = 'mysql:dbname=' . DB_NAME  . ';host=' . DB_HOST;
-		$user = DB_USER;
-		$password = DB_PASSWD;
+        return new Pdo();
+    }
+    
+    public static function init_db() 
+    {
+        $dsn = 'mysql:dbname=' . DB_NAME  . ';host=' . DB_HOST;
+        $user = DB_USER;
+        $password = DB_PASSWD;
 
-		//print_r($dsn);
-		//print_r($user);
-		//print_r($password);
+        //print_r($dsn);
+        //print_r($user);
+        //print_r($password);
 
-		try {
-			Pdo::$conn = new \PDO($dsn, $user, $password);
-		} catch (PDOException $e) {
-			echo 'Connection failed: ' . $e->getMessage();
-		}
+        try {
+            Pdo::$conn = new \PDO($dsn, $user, $password);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
 
-	}
+    }
 
-	public function setDbName ($db) {
-		$this->db_name = $db;
+    public function setDbName($db) 
+    {
+        $this->db_name = $db;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function query ($sql) {
-		Pdo::$last_sql = $sql;
+    public function query($sql) 
+    {
+        Pdo::$last_sql = $sql;
 
-		$res = Pdo::$conn->query($sql); 
+        $res = Pdo::$conn->query($sql); 
 
-		print_r($sql);
-		print_r(Pdo::$conn);
+        print_r($sql);
+        print_r(Pdo::$conn);
 
-		return $res;
-	}
+        return $res;
+    }
 
-	public function close_db () {
+    public function close_db() 
+    {
 
-	}
+    }
 }

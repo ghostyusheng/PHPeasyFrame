@@ -2,11 +2,12 @@
 
 namespace Core\Lib\Db;
 
-interface DeleteInterface {
-	
-	public function execute();		
+interface DeleteInterface
+{
+    
+    public function execute();        
 
-	public function delete($table);
+    public function delete($table);
 
-	public function build();
+    public function build();
 }
