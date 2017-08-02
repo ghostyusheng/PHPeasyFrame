@@ -99,9 +99,7 @@ class RunController
 
 	public function clause()
 	{
-		echo 'bibao';
 		echo '<hr/>';	
-		//$aaa = '111';
 
 		function test($aaa) {
 			return function() use ($aaa) {
@@ -112,10 +110,25 @@ class RunController
 		$fun = test('sss');
 		$fun();
 
+		echo '<hr/>';
+
 		\Core\Event\BaseEvent::listen('walk', function ($a) {
 			echo 'walking' . $a;
 		});
 
 		\Core\Event\BaseEvent::trigger('walk', 'aa');
+
+		echo '<hr/>';
+
+		\Core\Event\BaseEvent::listen('say', ['A', 'say']);
+		\Core\Event\BaseEvent::listen('say', 'A::say');
+
+		\Core\Event\BaseEvent::trigger('say');
+	}
+}
+
+class A {
+	public static function say () {
+		echo 'trigger say';
 	}
 }
