@@ -96,4 +96,26 @@ class RunController
     public function doo() 
     {
     }
+
+	public function clause()
+	{
+		echo 'bibao';
+		echo '<hr/>';	
+		//$aaa = '111';
+
+		function test($aaa) {
+			return function() use ($aaa) {
+				echo $aaa . "aa";
+			};
+		}
+
+		$fun = test('sss');
+		$fun();
+
+		\Core\Event\BaseEvent::listen('walk', function ($a) {
+			echo 'walking' . $a;
+		});
+
+		\Core\Event\BaseEvent::trigger('walk', 'aa');
+	}
 }

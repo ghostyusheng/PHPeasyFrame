@@ -2,6 +2,8 @@
 
 require 'Common/db_functions.php';
 
+require 'Lib/Event/BaseEvent.php';
+
 function router_dispach() 
 {
     $oldDir = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
