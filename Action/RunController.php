@@ -95,6 +95,8 @@ class RunController
 
     public function doo() 
     {
+		error_log('test');
+		echo 'test';
     }
 
 	public function clause()
