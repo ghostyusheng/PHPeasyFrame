@@ -4,6 +4,13 @@ namespace Core\Lib\Db;
 
 require_once 'SqlBuilder.php';
 require_once 'InsertInterface.php';
+require_once 'Pdo.php';
+
+require_once CORE_DIR . 'Lib/Entity/EntityManager.php';
+require_once CORE_DIR . 'Lib/Entity/BaseEntity.php';
+
+use \Core\Lib\Entity\EntityManager;
+use \Core\Lib\Entity\BaseEntity;
 
 class InsertBuilder extends SqlBuilder implements InsertInterface
 {
@@ -32,7 +39,10 @@ class InsertBuilder extends SqlBuilder implements InsertInterface
 
     public function execute() 
     {
+        $pdo  = Pdo::getInstance();
+        $res  = $pdo->query($this->sqlBuilder);
 
+        return $res ? true : false;
     }
 
     public function buildSql() 
