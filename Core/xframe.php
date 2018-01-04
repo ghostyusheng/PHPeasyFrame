@@ -1,36 +1,42 @@
 <?php
 
-function router_dispach () {
-	$oldDir = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
-	$dir = preg_filter('#\/[a-z]*$#', '', $oldDir);
+require 'Common/db_functions.php';
 
-	if (!isset($GLOBALS['routers'][$dir])) {
-		throw new Exception ('Route not found !');
-	}
+require 'Lib/Event/BaseEvent.php';
 
-	$path		= $GLOBALS['routers'][$dir];
-	$realPath	= $path . '.php';	
+function router_dispach() 
+{
+    $oldDir = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
+    $dir = preg_filter('#\/[a-z]*$#', '', $oldDir);
 
-	if (!file_exists($realPath)) {
-		throw new Exception ('File not found !');
-	}
-	
-	$tmpClass	= split('/', $dir)[count($dir)];
-	$class		= ucfirst(end(split('/', $path)));
-	$method		= end(split('/', $oldDir));
+    if (!isset($GLOBALS['routers'][$dir])) {
+        throw new Exception('Route not found !');
+    }
 
-	//print_r("<pre>");
-	//print_r("class : " . $class);
-	//print_r("\nmethod : " . $method);
-	//print_r("\n realpath : " . $realPath);
+    $path        = $GLOBALS['routers'][$dir];
+    $realPath    = $path . '.php';    
 
-	include $realPath;
+    if (!file_exists($realPath)) {
+        throw new Exception('File not found !');
+    }
+    
+    $tmpClass    = split('/', $dir)[count($dir)];
+    $class        = ucfirst(end(split('/', $path)));
+    $method        = end(split('/', $oldDir));
 
-	$obj = new $class;
+    //print_r("<pre>");
+    //print_r("class : " . $class);
+    //print_r("\nmethod : " . $method);
+    //print_r("\n realpath : " . $realPath);
 
-	if (is_callable([$class, $method])) {
-		$obj->$method();
-	}
+    include $realPath;
+
+    $obj = new $class;
+
+    if (is_callable([$class, $method])) {
+        $obj->$method();
+    }
 }
 
 router_dispach();
+

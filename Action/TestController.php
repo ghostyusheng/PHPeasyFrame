@@ -1,8 +1,10 @@
 <?php
 
-class TestController {
+class TestController
+{
 
-	public function index () {
-		print_r('welcome !');
-	}
+    public function index() 
+    {
+        print_r('welcome !');
+    }
 }
