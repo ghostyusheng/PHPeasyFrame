@@ -21,8 +21,6 @@
 </body>
 </html>
 <script type="text/javascript">  
-
-// 百度地图API功能
 	var map = new BMap.Map("map_demo");
 	map.centerAndZoom(new BMap.Point(105.302075,30.102696), 8);  //初始化地图,设置城市和地图级别。
 	var pointA = new BMap.Point(104.074055,30.680869);  // 成都
@@ -31,5 +29,5 @@
 	var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
 	map.addOverlay(polyline);     //添加折线到地图上
   
-  layer.msg('从成都到重庆的距离是：'+(map.getDistance(pointA,pointB)).toFixed(2)+' 米。');  //获取两点距离,保留小数点后两位
+	//layer.msg('从成都到重庆的距离是：'+(map.getDistance(pointA,pointB)).toFixed(2)+' 米。');  //获取两点距离,保留小数点后两位
 </script>
