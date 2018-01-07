@@ -28,6 +28,4 @@
 	
 	var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
 	map.addOverlay(polyline);     //添加折线到地图上
-  
-	//layer.msg('从成都到重庆的距离是：'+(map.getDistance(pointA,pointB)).toFixed(2)+' 米。');  //获取两点距离,保留小数点后两位
 </script>
