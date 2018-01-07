@@ -40,4 +40,10 @@ abstract class SqlBuilder
     }
 
     public abstract function buildSql();
+
+	public function groupBy ($what) {
+		$this->sqlBuilder .= " group by {$what}";
+
+		return $this;
+	}
 }

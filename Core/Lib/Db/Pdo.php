@@ -54,9 +54,6 @@ class Pdo
 
         $res = Pdo::$conn->query($sql); 
 
-        print_r($sql);
-        print_r(Pdo::$conn);
-
         return $res;
     }
 

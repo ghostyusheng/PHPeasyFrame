@@ -2,7 +2,7 @@
 
 require "BaseController.php";
 
-class MainController extends BaseController
+class Api_MainController extends BaseController
 {
 	public function index () {
         $infos = select(
@@ -16,8 +16,7 @@ class MainController extends BaseController
 		->groupBy('mark_id')
 		->execute ();
 
-		$this->attach ('infos', $infos);
-		$this->show ('Index\index');
+		$this->out ($infos->data ());
 	}
 
 }

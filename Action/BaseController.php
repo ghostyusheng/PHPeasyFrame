@@ -1,8 +1,10 @@
 <?php
 
 require VIEW_DIR . 'View.php';
+require CORE_DIR . 'Lib/Steam/Output.php';
 
 use \Core\View\View;
+use \Core\Steam\Output;
 
 class BaseController
 {
@@ -18,5 +20,9 @@ class BaseController
 
 	public function show ($file) {
 		$this->view->show ($file);
+	}
+
+	public function out ($data) {
+		(new Output ())->out ($data);
 	}
 }
