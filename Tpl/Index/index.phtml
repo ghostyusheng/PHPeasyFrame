@@ -12,8 +12,8 @@
   #map_demo1,#map_demo2{height: 50%}
   </style>
   <script type="text/javascript" src="../baidumapv2/baidumap_offline_v2_load.js"></script>
-  <script type="text/javascript" src="jquery.js"></script>
-  <script type="text/javascript" src="layer/layer.js"></script>
+  <script type="text/javascript" src="/demo/jquery.js"></script>
+  <script type="text/javascript" src="/demo/layer/layer.js"></script>
   <link rel="stylesheet" type="text/css" href="../baidumapv2/css/baidu_map_v2.css"/>
 </head>
 <body>
@@ -21,12 +21,35 @@
 </body>
 </html>
 <script type="text/javascript">  
-	var map = new BMap.Map("map_demo");
-	map.centerAndZoom(new BMap.Point(105.302075,30.102696), 8);  //初始化地图,设置城市和地图级别。
-	var pointA = new BMap.Point(104.074055,30.680869);  // 成都
-	var pointB = new BMap.Point(106.566889,29.57739);  // 创建点坐标B--重庆
-	
-	var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
-	map.addOverlay(polyline);     //添加折线到地图上
-</script>
+function prepareData () {
+	$.getJSON("/api_main/index", function(result){
+		var map 	= new BMap.Map("map_demo");
+		var datas   = result;	
 
+		map.centerAndZoom(new BMap.Point(100.6,36.202696), 5);
+  		map.addControl(new BMap.NavigationControl());
+
+		for (i in datas) {
+			var lats = datas[i].lats.split(',');		
+			var lons = datas[i].lons.split(',');		
+			var points   = [];
+
+			for (j in lons) {
+				var tmp_lon = parseFloat (lons[j]).toFixed (3);
+				var tmp_lat = parseFloat (lats[j]).toFixed (3);
+
+				points.push(new BMap.Point(tmp_lon, tmp_lat));
+			}
+
+			if (points) {
+				var polyline = new BMap.Polyline(points, {strokeColor:"red", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+			}
+
+			console.log(points);
+			map.addOverlay(polyline);     //添加折线到地图上
+		}
+	});
+}
+
+prepareData ();
+</script>
