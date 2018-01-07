@@ -35,8 +35,8 @@ function prepareData () {
 			var points   = [];
 
 			for (j in lons) {
-				var tmp_lon = parseFloat (lons[j]).toFixed (3);
-				var tmp_lat = parseFloat (lats[j]).toFixed (3);
+				var tmp_lon = lons[j];
+				var tmp_lat = lats[j];
 
 				points.push(new BMap.Point(tmp_lon, tmp_lat));
 			}

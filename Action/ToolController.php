@@ -18,21 +18,28 @@ class ToolController
 			$line = fgets ($fp);
 			$arr  = explode (' ', $line);
 
-			list ($id, $lon, $lat, $date, $time, $sst) = $arr;
+			if (count ($arr) == 6) {
+				$id = $arr[0];
+				$lon = $arr[1];
+				$lat = $arr[2];
+				$date = $arr[3];
+				$time = $arr[4];
+				$sst = $arr[5];
 
-			echo "id : $id, lon : $lon, lat : $lat, date : $date, time : $time. sst : $sst \n";
-				
-			insert('buoyage_info')
-			->values(
-				[
-					'mark_id' => $id,
-					'lon'     => $lon,
-					'lat'     => $lat,
-					'date'    => $date . ' ' . $time,
-					'sst'     => $sst
-				]
-			)
-			->execute ();
+				insert('buoyage_info')
+				->values(
+					[
+						'mark_id' => $id,
+						'lon'     => $lon,
+						'lat'     => $lat,
+						'date'    => $date . ' ' . $time,
+						'sst'     => $sst
+					]
+				)
+				->execute ();
+
+				echo "id : $id, lon : $lon, lat : $lat, date : $date, time : $time. sst : $sst <br>";
+			}
 		}
 	}
 }
