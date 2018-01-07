@@ -8,8 +8,12 @@ class ToolController
         print_r('welcome !');
     }
 
-	public function read () {
+	public function read ($path) {
 		$fp = fopen (BASE_DIR . 'data.txt', 'r');
+
+		if ($path) {
+			$fp = fopen ($path, "r");
+		}
 
 		$title = fgets ($fp);
 		echo $title;

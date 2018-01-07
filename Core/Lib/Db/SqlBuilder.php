@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace Core\Lib\Db;
 
 abstract class SqlBuilder
@@ -43,6 +42,18 @@ abstract class SqlBuilder
 
 	public function groupBy ($what) {
 		$this->sqlBuilder .= " group by {$what}";
+
+		return $this;
+	}
+
+	public function between ($field, $start, $end) {
+		if (strpos ($this->sqlBuilder, 'where')) {
+			$this->sqlBuilder .= " and ({$field} between {$start} and {$end})";
+				
+			return $this;
+		}
+
+		$this->sqlBuilder .= " where ({$field} between {$start} and {$end})";
 
 		return $this;
 	}
