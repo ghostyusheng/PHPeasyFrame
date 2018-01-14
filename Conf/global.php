@@ -1,5 +1,7 @@
 <?php
 
+define('HTTP_SERVER', 'nginx'); 
+
 define('BASE_DIR', __DIR__ . '/../');
 define('CORE_DIR', __DIR__ . '/../Core/');
 define('MODEL_DIR', __DIR__ . '/../Model/');
@@ -9,6 +11,6 @@ define('UPLOAD_DIR', BASE_DIR . 'Static/Uploads/');
 
 define('DB_NAME', 'buoyage');
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'root');
+define('DB_USER', 'zys');
 define('DB_PASSWD', '123456');
 

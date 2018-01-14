@@ -15,7 +15,6 @@ class Api_MainController extends BaseController
 
         $infos = select(
             [
-				'*',
 				'group_concat(lon) as lons',
 				'group_concat(lat) as lats'
             ]
@@ -66,7 +65,6 @@ class Api_MainController extends BaseController
 
         $infos = select(
             [
-				'*',
 				'group_concat(lon) as lons',
 				'group_concat(lat) as lats'
             ]

@@ -9,6 +9,11 @@ function router_dispach()
     $oldDir = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
     $dir = preg_filter('#\/[a-z]*$#', '', $oldDir);
 
+	if (HTTP_SERVER == 'nginx') {
+		$oldDir = $_REQUEST['u'];
+		$dir	= '/'. preg_filter('#\/[a-z]*$#', '', $oldDir);
+	}
+
     if (!isset($GLOBALS['routers'][$dir])) {
         throw new Exception('Route not found !');
     }
@@ -20,9 +25,9 @@ function router_dispach()
         throw new Exception('File not found !');
     }
     
-    $tmpClass    = split('/', $dir)[count($dir)];
-    $class        = ucfirst(end(split('/', $path)));
-    $method        = end(split('/', $oldDir));
+    $tmpClass		= explode ('/', $dir)[count($dir)];
+    $class			= ucfirst(end(explode ('/', $path)));
+    $method			= end(explode ('/', $oldDir));
 
     //print_r("<pre>");
     //print_r("class : " . $class);
