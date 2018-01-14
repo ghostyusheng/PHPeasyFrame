@@ -25,8 +25,19 @@ abstract class SqlBuilder
         return $this;
     }
 
-    public function andWhere(Array $where) 
+    public function andWhere($where) 
     {
+		if (!is_array ($where)) {
+        	$this->sqlBuilder  .= " and $where";
+			
+			return $this;
+		}
+
+        $key    			= array_keys($where)[0];
+        $value    			= $where[$key]; 
+        $this->sqlBuilder  .= " and where `{$key}` = '{$value}'";
+
+		return $this;
     }
 
     public function orWhere(Array $where) 

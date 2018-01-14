@@ -98,7 +98,7 @@ abstract class AbstractEntity
 
     public function fetchOne() 
     {
-
+        return $this->data[0];
     }
 
     public function update() 

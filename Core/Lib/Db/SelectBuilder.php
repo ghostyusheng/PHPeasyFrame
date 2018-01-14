@@ -54,6 +54,8 @@ class SelectBuilder extends SqlBuilder implements SelectInterface
     public function buildSql() 
     {
         echo $this->sqlBuilder;
+	
+		return $this;
     }
 
 }

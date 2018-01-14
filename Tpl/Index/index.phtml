@@ -4,8 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <title>buoyage_sys</title>
-  <script type="text/javascript" src="../baidumapv2/baidumap_offline_v2_load.js"></script>
-  <script type="text/javascript" src="/demo/jquery.js"></script> <script type="text/javascript" src="/demo/layer/layer.js"></script>
+  <script type="text/javascript" src="../baidumapv2/baidumap_offline_v2_load.js"></script> <script type="text/javascript" src="/demo/jquery.js"></script> <script type="text/javascript" src="/demo/layer/layer.js"></script>
   <link rel="stylesheet" type="text/css" href="../baidumapv2/css/baidu_map_v2.css"/>
   <link rel="stylesheet" type="text/css" href="/Static/Css/index.css"/>
 </head>
@@ -84,8 +83,37 @@ function prepareData () {
 		var map 	= new BMap.Map("map_demo");
 		var datas   = result;	
 
+		map.enableScrollWheelZoom();
 		map.centerAndZoom(new BMap.Point(100.6,36.202696), 5);
   		map.addControl(new BMap.NavigationControl());
+
+		map.addEventListener("click",function(e){
+			var tmp_lon = e.point.lng;
+			var tmp_lat = e.point.lat;
+			var data = {
+				tmp_lon : tmp_lon,
+				tmp_lat : tmp_lat
+			};
+
+			$.getJSON ('/api_main/getunitdetail', data, function (res) {
+				var tmp_lon = res.lon,
+					tmp_lat = res.lat,
+					mark_id = res.mark_id,
+					sst 	= res.sst
+					content = '浮标id : ' + mark_id + "<br/>" +
+							  '经度 : '   + tmp_lon + "<br/>" +
+							  '纬度 : '   + tmp_lat + "<br/>" +
+							  '海表温度 : ' + sst;
+
+				//var layer_options = {
+				//	area: ['500px', '300px']
+				//};
+				//layer.msg (content, layer_options);
+
+				layer.msg (content);
+			});
+		});
+
 
 		var colors = ['blue', 'red', 'orange', 'yellow', 'black', 'pink', 'gray', 'green'];
 			console.log(points);
@@ -109,13 +137,36 @@ function prepareData () {
 			console.log(points);
 			map.addOverlay(polyline);     //添加折线到地图上
 
-		}
+			for (k in points) {
+				if (k % 5 != 0) {
+					continue;
+				}
+				var tmp_lon = points[k].lng;
+				var tmp_lat = points[k].lat;
 
-			var point = new BMap.Point (120, 30);
-			var marker = new BMap.Marker(point);
-			map.addOverlay(marker);
+				var point = new BMap.Point (tmp_lon, tmp_lat);
+				var oval = new BMap.Polygon(add_oval(point,0.03,0.03), {strokeColor:"blue", strokeWeight:0.3, strokeOpacity:0.3});
+				map.addOverlay(oval);
+			}
+		}
 	});
 }
+
+function add_oval(centre,x,y)
+{
+	var assemble=new Array();
+	var angle;
+	var dot;
+	var tangent=x/y;
+	for(i=0;i<36;i++)
+	{
+		angle = (2* Math.PI / 36) * i;
+		dot = new BMap.Point(centre.lng+Math.sin(angle)*y*tangent, centre.lat+Math.cos(angle)*y);
+		assemble.push(dot);
+	}
+	return assemble;
+}
+
 
 function searchData () {
 	
