@@ -5,10 +5,14 @@ require "ToolController.php";
 require CORE_DIR . 'Lib/Steam/Input.php';
 
 use \Core\Steam\Input;
+use \Core\Lib\Db\Pdo;
 
 class Api_MainController extends BaseController
 {
 	public function index () {
+		Pdo::getInstance ()->query ("SET GLOBAL group_concat_max_len=1024000;");
+		Pdo::getInstance ()->query ("SET @@GROUP_CONCAT_MAX_LEN = 1024000;");
+
         $infos = select(
             [
 				'*',
@@ -17,6 +21,9 @@ class Api_MainController extends BaseController
             ]
         )
         ->from('buoyage_info')
+		->where ([
+			'flag' => 0
+		])
 		->groupBy('mark_id')
 		->execute ();
 

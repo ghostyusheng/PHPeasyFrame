@@ -5,16 +5,14 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <title>buoyage_sys</title>
   <script type="text/javascript" src="../baidumapv2/baidumap_offline_v2_load.js"></script>
-  <script type="text/javascript" src="/demo/jquery.js"></script>
-  <script type="text/javascript" src="/demo/layer/layer.js"></script>
+  <script type="text/javascript" src="/demo/jquery.js"></script> <script type="text/javascript" src="/demo/layer/layer.js"></script>
   <link rel="stylesheet" type="text/css" href="../baidumapv2/css/baidu_map_v2.css"/>
   <link rel="stylesheet" type="text/css" href="/Static/Css/index.css"/>
 </head>
 <body>
 <div id="map_demo">1</div>
 <div class="search_bar">
-	<div class="search">数据筛选
-		<img src="/Static/Images/search.png" />
+	<div class="search">数据筛选 <img src="/Static/Images/search.png" />
 	</div>
 	<div class="import">数据导入
 		<img src="/Static/Images/import.png" />
@@ -110,7 +108,12 @@ function prepareData () {
 
 			console.log(points);
 			map.addOverlay(polyline);     //添加折线到地图上
+
 		}
+
+			var point = new BMap.Point (120, 30);
+			var marker = new BMap.Marker(point);
+			map.addOverlay(marker);
 	});
 }
 
