@@ -89,6 +89,9 @@ function prepareData () {
 		map.centerAndZoom(new BMap.Point(100.6,36.202696), 5);
   		map.addControl(new BMap.NavigationControl());
 
+		var colors = ['blue', 'red', 'orange', 'yellow', 'black', 'pink', 'gray', 'green'];
+			console.log(points);
+
 		for (i in datas) {
 			var lats = datas[i].lats.split(',');		
 			var lons = datas[i].lons.split(',');		
@@ -102,7 +105,7 @@ function prepareData () {
 			}
 
 			if (points) {
-				var polyline = new BMap.Polyline(points, {strokeColor:"red", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+				var polyline = new BMap.Polyline(points, {strokeColor: colors[i], strokeWeight:2, strokeOpacity:0.5});  //定义折线
 			}
 
 			console.log(points);
