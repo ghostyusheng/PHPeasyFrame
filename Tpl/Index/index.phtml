@@ -47,10 +47,10 @@ function init () {
 			</form>\
 		';
 
-		layer.open({
+		var tmp_search_win = layer.open({
 		  type: 1,
 		  skin: 'layui-layer-rim', //加上边框
-		  area: ['420px', '240px'], //宽高
+		  area: ['320px', '240px'], //宽高
 		  content: search_content
 		});
 
@@ -194,6 +194,7 @@ function bindSearchDataEvent () {
 				layer.msg ('筛选成功');
 			}	
 		});
+
 	});
 }
 
