@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html> <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <title>buoyage_sys</title>
@@ -25,20 +24,26 @@ init ();
 function init () {
 	$(".search_bar .search").bind ("click", function () {
 		var search_content = '\
+			<form id="layer_search">\
 			<div class="layer_search">\
 				<div class="title">数据筛选\
 					<img src="/Static/Images/search.png" />\
 				</div>\
 				<div>\
 					<span>经度:</span>\
-					<input type="text" name="lat" />\
+					<input type="text" name="lon_start" />\
+					~\
+					<input type="text" name="lon_end" />\
 				</div>\
 				<div>\
 					<span>纬度:</span>\
-					<input type="text" name="lon" />\
+					<input type="text" name="lat_start" />\
+					~\
+					<input type="text" name="lat_end" />\
 				</div>\
-				<button type="submit">搜索</button>\
+				<button type="button" class="search">搜索</button>\
 			</div>\
+			</form>\
 		';
 
 		layer.open({
@@ -47,6 +52,8 @@ function init () {
 		  area: ['420px', '240px'], //宽高
 		  content: search_content
 		});
+
+		bindSearchDataEvent ();
 	});
 
 	$(".search_bar .import").bind ("click", function () {
@@ -78,8 +85,15 @@ function init () {
 	});
 }
 
-function prepareData () {
+function prepareData (searchData) {
+	searchData = searchData || '';
+
 	$.getJSON("/api_main/index", function(result){
+
+		if (searchData) {
+			result = searchData;
+		}
+
 		var map 	= new BMap.Map("map_demo");
 		var datas   = result;	
 
@@ -168,8 +182,16 @@ function add_oval(centre,x,y)
 }
 
 
-function searchData () {
-	
+function bindSearchDataEvent () {
+	$('.layer_search .search').die().bind ("click", function () {
+		tmp_form_data = $('#layer_search').serialize ();
+			
+		$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
+			if (res) {
+				prepareData (res);
+			}	
+		});
+	});
 }
 
 

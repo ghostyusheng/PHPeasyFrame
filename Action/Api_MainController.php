@@ -59,7 +59,30 @@ class Api_MainController extends BaseController
 	}
 
 	public function search () {
-		
+		$lon_start = $_GET['lon_start'];	
+		$lon_end   = $_GET['lon_end'];	
+		$lat_start = $_GET['lat_start'];	
+		$lat_end   = $_GET['lat_end'];	
+
+        $infos = select(
+            [
+				'*',
+				'group_concat(lon) as lons',
+				'group_concat(lat) as lats'
+            ]
+        )
+        ->from('buoyage_info')
+		->where ([
+			'flag' => 0
+		])
+		->andWhere ("lon > {$lon_start}")
+		->andWhere ("lon < {$lon_end}")
+		->andWhere ("lat > {$lat_start}")
+		->andWhere ("lat < {$lat_end}")
+		->groupBy('mark_id')
+		->execute ();
+
+		$this->out ($infos->data ());
 	}
 
 	public function uploaddata() {
