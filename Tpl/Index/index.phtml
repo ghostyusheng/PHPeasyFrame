@@ -4,17 +4,17 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <title>buoyage_sys</title>
   <script type="text/javascript" src="../baidumapv2/baidumap_offline_v2_load.js"></script> 
-  <script type="text/javascript" src="/buoyage/demo/jquery.js"></script> <script type="text/javascript" src="/buoyage/demo/layer/layer.js"></script>
+  <script type="text/javascript" src="/demo/jquery.js"></script> <script type="text/javascript" src="/demo/layer/layer.js"></script>
   <link rel="stylesheet" type="text/css" href="../baidumapv2/css/baidu_map_v2.css"/>
-  <link rel="stylesheet" type="text/css" href="/buoyage/Static/Css/index.css"/>
+  <link rel="stylesheet" type="text/css" href="/Static/Css/index.css"/>
 </head>
 <body>
 <div id="map_demo">1</div>
 <div class="search_bar">
-	<div class="search">数据筛选 <img src="/buoyage/Static/Images/search.png" />
+	<div class="search">数据筛选 <img src="/Static/Images/search.png" />
 	</div>
 	<div class="import">数据导入
-		<img src="/buoyage/Static/Images/import.png" />
+		<img src="/Static/Images/import.png" />
 	</div>
 </div>
 </body
@@ -28,7 +28,7 @@ function init () {
 			<form id="layer_search">\
 			<div class="layer_search">\
 				<div class="title">数据筛选\
-					<img src="/buoyage/Static/Images/search.png" />\
+					<img src="/Static/Images/search.png" />\
 				</div>\
 				<div>\
 					<span>经度:</span>\
@@ -59,7 +59,7 @@ function init () {
 
 	$(".search_bar .import").bind ("click", function () {
 		var search_content = '\
-			<form action="/buoyage/api_main/uploaddata" method="post" enctype="multipart/form-data" >\
+			<form action="/api_main/uploaddata" method="post" enctype="multipart/form-data" >\
 			<div class="layer_search">\
 				<div class="title">数据导入\
 					<img src="/Static/Images/import.png" />\
@@ -89,7 +89,7 @@ function init () {
 function prepareData (searchData) {
 	searchData = searchData || '';
 
-	$.getJSON("/buoyage/api_main/index", function(result){
+	$.getJSON("/api_main/index", function(result){
 
 		if (searchData) {
 			result = searchData;
@@ -110,7 +110,7 @@ function prepareData (searchData) {
 				tmp_lat : tmp_lat
 			};
 
-			$.getJSON ('/buoyage/api_main/getunitdetail', data, function (res) {
+			$.getJSON ('/api_main/getunitdetail', data, function (res) {
 				var tmp_lon = res.lon,
 					tmp_lat = res.lat,
 					mark_id = res.mark_id,
@@ -187,7 +187,7 @@ function bindSearchDataEvent () {
 	$('.layer_search .search').die().bind ("click", function () {
 		tmp_form_data = $('#layer_search').serialize ();
 			
-		$.getJSON ('/buoyage/api_main/search?' + tmp_form_data, function (res) {
+		$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
 			if (res) {
 				prepareData (res);
 

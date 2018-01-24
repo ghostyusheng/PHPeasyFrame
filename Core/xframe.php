@@ -11,11 +11,11 @@ function router_dispach()
 
 	if (HTTP_SERVER == 'nginx') {
 		$oldDir = $_REQUEST['u'];
-		$dir	= '/'. preg_filter('#\/[a-z]*$#', '', $oldDir);
+		$dir	= preg_filter('#\/[a-z]*$#', '', $oldDir);
 	}
 
     if (!isset($GLOBALS['routers'][$dir])) {
-        throw new Exception('Route not found !');
+        throw new Exception( $_REQUEST['u'] . ' Route not found !');
     }
 
     $path        = $GLOBALS['routers'][$dir];
