@@ -118,6 +118,7 @@ function init () {
 					<select name=mark_id>' +
 					id_types_content +
 					'</select>' +
+					'<div class=multi_mark_ids_select></div>' +
 					'<button type="button" class="search">搜索</button>\
 				</div>\
 				</form>\
@@ -294,15 +295,22 @@ function bindSearchDataYearEvent () {
 
 function bindSearchDataIdEvent () {
 	$('.layer_search .search').die().bind ("click", function () {
-		tmp_form_data = $('#layer_search_id').serialize ();
-			
-		$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
-			if (res) {
-				prepareData (res);
+		var user_select_mark_id = $("select[name=mark_id]").val ();	
+		var ele = "<div uniqid=" + user_select_mark_id + "><div class=x_close>x</div><span>" + user_select_mark_id + "</span></div>";
 
-				layer.msg ('筛选成功');
-			}	
-		});
+		$(".multi_mark_ids_select").append (ele);
+
+		bind_x_close_event ();
+
+		//tmp_form_data = $('#layer_search_id').serialize ();
+		//	
+		//$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
+		//	if (res) {
+		//		prepareData (res);
+
+		//		layer.msg ('筛选成功');
+		//	}	
+		//});
 
 	});
 }
@@ -312,6 +320,15 @@ function addColorBar (mark_id, color) {
 	
 	$(".color_bar").append (tmp_content);
 }
+
+function bind_x_close_event () {
+	$(".x_close").die().bind ("click", function () {
+		var uniqid = $(this).next().text();
+		var mark = "div[uniqid=" + uniqid + "]";
+		$(mark).remove ();
+	});
+}
+
 
 prepareData ();
 </script>
