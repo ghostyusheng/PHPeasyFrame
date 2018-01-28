@@ -11,7 +11,7 @@ function router_dispach()
 
 	if (HTTP_SERVER == 'nginx') {
 		$oldDir = $_REQUEST['u'];
-		$dir	= preg_filter('#\/[a-z]*$#', '', $oldDir);
+		$dir	= preg_filter('#\/[a-z_]*$#', '', $oldDir);
 	}
 
     if (!isset($GLOBALS['routers'][$dir])) {

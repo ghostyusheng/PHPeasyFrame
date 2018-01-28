@@ -63,24 +63,59 @@ class Api_MainController extends BaseController
 		$lat_start = $_GET['lat_start'];	
 		$lat_end   = $_GET['lat_end'];	
 
-        $infos = select(
+		$start_year = $_GET['start_year'];	
+		$end_year   = $_GET['end_year'];	
+
+		if ($lon_start && $lon_end && $lat_start && $lat_end) {
+			$infos = select(
+				[
+					'group_concat(lon) as lons',
+					'group_concat(lat) as lats'
+				]
+			)
+			->from('buoyage_info')
+			->where ([
+				'flag' => 0
+			])
+			->andWhere ("lon > {$lon_start}")
+			->andWhere ("lon < {$lon_end}")
+			->andWhere ("lat > {$lat_start}")
+			->andWhere ("lat < {$lat_end}")
+			->groupBy('mark_id')
+			->execute ();
+		}
+
+		if ($start_year && $end_year) {
+			$infos = select(
+				[
+					'group_concat(lon) as lons',
+					'group_concat(lat) as lats'
+				]
+			)
+			->from('buoyage_info')
+			->where ([
+				'flag' => 0
+			])
+			->andWhere ("date_format(date, '%Y-%m') >= '{$start_year}'")
+			->andWhere ("date_format(date, '%Y-%m') <= '{$end_year}'")
+			->groupBy('mark_id')
+			->execute ();
+		}
+
+		$this->out ($infos->data ());
+	}
+
+	public function get_data_year_month () {
+        $year_mons = select(
             [
-				'group_concat(lon) as lons',
-				'group_concat(lat) as lats'
+				'date_format(date,"%Y-%m") as year_mon_types'
             ]
         )
         ->from('buoyage_info')
-		->where ([
-			'flag' => 0
-		])
-		->andWhere ("lon > {$lon_start}")
-		->andWhere ("lon < {$lon_end}")
-		->andWhere ("lat > {$lat_start}")
-		->andWhere ("lat < {$lat_end}")
-		->groupBy('mark_id')
+		->groupBy ('date_format(date, "%Y-%m")')
 		->execute ();
 
-		$this->out ($infos->data ());
+		$this->out ($year_mons->data ());
 	}
 
 	public function uploaddata() {
