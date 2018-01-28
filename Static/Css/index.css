@@ -79,3 +79,12 @@ h4
     border: 3px dashed #4585c5;
 	cursor: pointer;
 }
+
+.color_bar > div
+{
+	margin : 10px;
+	height : 20px;
+	width  : 20px;	
+	background : red;
+	text-indent: 30px;
+}

@@ -20,6 +20,7 @@
 	<div class="import">数据导入
 		<img src="/Static/Images/import.png" />
 	</div>
+	<div class="color_bar"></div>
 </div>
 </body
 </html>
@@ -214,7 +215,10 @@ function prepareData (searchData) {
 			var lons = datas[i].lons.split(',');		
 			var points   = [];
 
-			console.log (datas[i]);
+			var current_mark_id = datas[i].mark_id;
+			var point_color = colors[i % 8];
+
+			addColorBar (current_mark_id, point_color);
 
 			for (j in lons) {
 				var tmp_lon = lons[j];
@@ -226,11 +230,6 @@ function prepareData (searchData) {
 			if (points) {
 				//var polyline = new BMap.Polyline(points, {strokeColor: colors[i], strokeWeight:2, strokeOpacity:0.5});  //定义折线
 			}
-
-			//console.log(points);
-			point_color = colors[i % 8];
-			console.log (point_color);
-			//map.addOverlay(polyline);     //添加折线到地图上
 
 			for (k in points) {
 				if (k % 5 != 0) {
@@ -306,6 +305,12 @@ function bindSearchDataIdEvent () {
 		});
 
 	});
+}
+
+function addColorBar (mark_id, color) {
+	var tmp_content = "<div style='background-color:" + color + "'>" + mark_id + "</div>";
+	
+	$(".color_bar").append (tmp_content);
 }
 
 prepareData ();
