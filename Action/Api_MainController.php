@@ -65,7 +65,8 @@ class Api_MainController extends BaseController
 		$lat_end    = $_GET['lat_end'];	
 		$start_year = $_GET['start_year'];	
 		$end_year   = $_GET['end_year'];	
-		$mark_id    = $_GET['mark_id'];	
+		$id_params  = $_GET['id_params'];	
+		$id_params  = implode (',', array_unique (json_decode ($id_params)));
 
 		if ($lon_start && $lon_end && $lat_start && $lat_end) {
 			$infos = select(
@@ -103,7 +104,7 @@ class Api_MainController extends BaseController
 			->execute ();
 		}
 
-		if ($mark_id) {
+		if ($id_params) {
 			$infos = select(
 				[
 					'group_concat(lon) as lons',
@@ -114,7 +115,7 @@ class Api_MainController extends BaseController
 			->where ([
 				'flag'		=> 0
 			])
-			->andWhere ("mark_id = '{$mark_id}'")
+			->andWhere ("mark_id in ({$id_params})")
 			->groupBy('mark_id')
 			->execute ();
 		}

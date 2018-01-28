@@ -119,7 +119,8 @@ function init () {
 					id_types_content +
 					'</select>' +
 					'<div class=multi_mark_ids_select></div>' +
-					'<button type="button" class="search">搜索</button>\
+					'<button type="button" class="add">添加</button>\
+					<button type="button" class="search">搜索</button>\
 				</div>\
 				</form>\
 			';
@@ -131,6 +132,7 @@ function init () {
 			  content: search_content
 			});
 
+			bindAddButtonEvent ();
 			bindSearchDataIdEvent ();
 		});
 	});
@@ -295,23 +297,38 @@ function bindSearchDataYearEvent () {
 
 function bindSearchDataIdEvent () {
 	$('.layer_search .search').die().bind ("click", function () {
+		var id_params = [];
+
+		$(".multi_mark_ids_select > div").each (function () {
+			id_params.push($(this).attr("uniqid"));
+		});
+
+		id_params = JSON.stringify (id_params);
+		console.log (id_params);
+
+		tmp_form_data = {
+			id_params : id_params
+		};
+
+		$.getJSON ('/api_main/search', tmp_form_data, function (res) {
+			if (res) {
+				prepareData (res);
+
+				layer.msg ('筛选成功');
+			}	
+		});
+
+	});
+}
+
+function bindAddButtonEvent () {
+	$('.layer_search .add').die().bind ("click", function () {
 		var user_select_mark_id = $("select[name=mark_id]").val ();	
 		var ele = "<div uniqid=" + user_select_mark_id + "><div class=x_close>x</div><span>" + user_select_mark_id + "</span></div>";
 
 		$(".multi_mark_ids_select").append (ele);
 
 		bind_x_close_event ();
-
-		//tmp_form_data = $('#layer_search_id').serialize ();
-		//	
-		//$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
-		//	if (res) {
-		//		prepareData (res);
-
-		//		layer.msg ('筛选成功');
-		//	}	
-		//});
-
 	});
 }
 
