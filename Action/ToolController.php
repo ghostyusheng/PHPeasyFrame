@@ -9,7 +9,7 @@ class ToolController
     }
 
 	public function read ($path = '') {
-		$fp = fopen (BASE_DIR . 'data/0201.txt', 'r');
+		$fp = fopen (BASE_DIR . 'new_data/0301.txt', 'r');
 
 		if ($path) {
 			$fp = fopen ($path, "r");
@@ -21,6 +21,10 @@ class ToolController
 		while (!feof ($fp)) {
 			$line = fgets ($fp);
 			$arr  = explode ("\t", $line);
+
+			if (!isset ($arr[1])) {
+				$arr = explode (" ", $line);
+			}
 
 			if (count ($arr) == 6) {
 				$id = $arr[0];
@@ -48,7 +52,7 @@ class ToolController
 	}
 
 	public function readdir () {
-		$dir  = BASE_DIR . 'data/';
+		$dir  = BASE_DIR . 'new_data/';
 		$d    = dir($dir);
 		$txts = [];
 
@@ -67,6 +71,10 @@ class ToolController
 				$line = fgets ($fp);
 				$line = str_replace (' ', "\t", $line);
 				$arr  = explode ("\t", $line);
+				
+				if (!isset ($arr[1])) {
+					$arr = explode (" ", $line);
+				}
 
 				if (count ($arr) == 6) {
 					$id = $arr[0];

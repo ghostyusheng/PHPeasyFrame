@@ -40,6 +40,7 @@ class InsertBuilder extends SqlBuilder implements InsertInterface
     public function execute() 
     {
         $pdo  = Pdo::getInstance();
+
         $res  = $pdo->query($this->sqlBuilder);
 
         return $res ? true : false;

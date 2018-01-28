@@ -11,7 +11,9 @@
 <body>
 <div id="map_demo">1</div>
 <div class="search_bar">
-	<div class="search">数据筛选 <img src="/Static/Images/search.png" />
+	<div class="search">经纬度筛选 <img src="/Static/Images/search.png" />
+	</div>
+	<div class="search_year">年份筛选 <img src="/Static/Images/search.png" />
 	</div>
 	<div class="import">数据导入
 		<img src="/Static/Images/import.png" />
@@ -27,7 +29,7 @@ function init () {
 		var search_content = '\
 			<form id="layer_search">\
 			<div class="layer_search">\
-				<div class="title">数据筛选\
+				<div class="title">经纬度筛选\
 					<img src="/Static/Images/search.png" />\
 				</div>\
 				<div>\
@@ -50,7 +52,7 @@ function init () {
 		var tmp_search_win = layer.open({
 		  type: 1,
 		  skin: 'layui-layer-rim', //加上边框
-		  area: ['320px', '240px'], //宽高
+		  area: ['370px', '240px'], //宽高
 		  content: search_content
 		});
 
