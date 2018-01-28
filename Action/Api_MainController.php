@@ -58,13 +58,13 @@ class Api_MainController extends BaseController
 	}
 
 	public function search () {
-		$lon_start = $_GET['lon_start'];	
-		$lon_end   = $_GET['lon_end'];	
-		$lat_start = $_GET['lat_start'];	
-		$lat_end   = $_GET['lat_end'];	
-
+		$lon_start  = $_GET['lon_start'];	
+		$lon_end    = $_GET['lon_end'];	
+		$lat_start  = $_GET['lat_start'];	
+		$lat_end    = $_GET['lat_end'];	
 		$start_year = $_GET['start_year'];	
 		$end_year   = $_GET['end_year'];	
+		$mark_id    = $_GET['mark_id'];	
 
 		if ($lon_start && $lon_end && $lat_start && $lat_end) {
 			$infos = select(
@@ -81,7 +81,7 @@ class Api_MainController extends BaseController
 			->andWhere ("lon < {$lon_end}")
 			->andWhere ("lat > {$lat_start}")
 			->andWhere ("lat < {$lat_end}")
-			->groupBy('mark_id')
+			->groupBy ('mark_id')
 			->execute ();
 		}
 
@@ -102,6 +102,22 @@ class Api_MainController extends BaseController
 			->execute ();
 		}
 
+		if ($mark_id) {
+			$infos = select(
+				[
+					'group_concat(lon) as lons',
+					'group_concat(lat) as lats'
+				]
+			)
+			->from('buoyage_info')
+			->where ([
+				'flag'		=> 0
+			])
+			->andWhere ("mark_id = '{$mark_id}'")
+			->groupBy('mark_id')
+			->execute ();
+		}
+
 		$this->out ($infos->data ());
 	}
 
@@ -113,6 +129,19 @@ class Api_MainController extends BaseController
         )
         ->from('buoyage_info')
 		->groupBy ('date_format(date, "%Y-%m")')
+		->execute ();
+
+		$this->out ($year_mons->data ());
+	}
+
+	public function get_data_id_types () {
+        $year_mons = select(
+            [
+				'mark_id'
+            ]
+        )
+        ->from('buoyage_info')
+		->groupBy ('mark_id')
 		->execute ();
 
 		$this->out ($year_mons->data ());

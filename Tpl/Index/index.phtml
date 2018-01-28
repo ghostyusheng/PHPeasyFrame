@@ -15,6 +15,8 @@
 	</div>
 	<div class="search_year">年份筛选 <img src="/Static/Images/search.png" />
 	</div>
+	<div class="search_id">浮标ID筛选 <img src="/Static/Images/search.png" />
+	</div>
 	<div class="import">数据导入
 		<img src="/Static/Images/import.png" />
 	</div>
@@ -94,6 +96,41 @@ function init () {
 			});
 
 			bindSearchDataYearEvent ();
+		});
+	});
+
+	$(".search_bar .search_id").bind ("click", function () {
+		$.getJSON ('/api_main/get_data_id_types', function (res) {
+			var id_types_content= "";
+
+			if (res) {
+				for (i in res) {
+					id_types_content += "<option>" + res[i].mark_id + "</option>";
+				}
+			}	
+
+			var search_content = '\
+				<form id="layer_search_id">\
+				<div class="layer_search">\
+					<div class="title">浮标ID筛选\
+						<img src="/Static/Images/search.png" />\
+					</div>\
+					<select name=mark_id>' +
+					id_types_content +
+					'</select>' +
+					'<button type="button" class="search">搜索</button>\
+				</div>\
+				</form>\
+			';
+
+			var tmp_search_win = layer.open({
+			  type: 1,
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['370px', '240px'], //宽高
+			  content: search_content
+			});
+
+			bindSearchDataIdEvent ();
 		});
 	});
 
@@ -241,6 +278,21 @@ function bindSearchDataEvent () {
 function bindSearchDataYearEvent () {
 	$('.layer_search .search').die().bind ("click", function () {
 		tmp_form_data = $('#layer_search_year').serialize ();
+			
+		$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
+			if (res) {
+				prepareData (res);
+
+				layer.msg ('筛选成功');
+			}	
+		});
+
+	});
+}
+
+function bindSearchDataIdEvent () {
+	$('.layer_search .search').die().bind ("click", function () {
+		tmp_form_data = $('#layer_search_id').serialize ();
 			
 		$.getJSON ('/api_main/search?' + tmp_form_data, function (res) {
 			if (res) {
